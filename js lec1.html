@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day1</title>
+</head>
+<body>
+    <script>
+        
+        var userName = prompt("enter user name");
+        if(userName != "admin"){
+          do{
+            
+            userName = prompt("wrong renter user name"); 
+                     
+          }
+          while(userName != "admin")
+        } 
+        var password = prompt("enter password");   
+        if(password != "421$$"){
+          do{
+            
+            password = prompt("wrong renter password"); 
+            
+          }
+          while(password != "421$$")
+        } 
+
+        if(userName == "admin" && password == "421$$"){
+            document.write("<h1>welcome login success</h1>");
+        } 
+          
+
+
+       
+       /*
+        var num1 = Number(prompt("enter first number"));
+        var op = prompt("choose operation (+ - * / %)");
+        var num2 = Number(prompt("enter second number"));
+        var result = 0;
+        switch(op){
+            case "+":
+              result = num1+num2    
+            break;
+            case "-":
+              result = num1-num2    
+            break;
+            case "*":
+              result = num1*num2    
+            break;
+            case "/":
+              result = num1/num2    
+            break;
+            case "%":
+              result = num1%num2    
+            break;
+            
+            
+        }
+        alert(result);
+        var again = prompt("continue? (Y,N)").toUpperCase();
+        while(again == "Y"){
+            num1 = result
+            var op = prompt("choose operation (+ - * / %)");
+            var num2 = Number(prompt("enter second number"));
+            switch(op){
+            case "+":
+              result = num1+num2    
+            break
+            case "-":
+              result = num1-num2    
+            break
+            case "*":
+              result = num1*num2    
+            break
+            case "/":
+              result = num1/num2    
+            break
+            case "%":
+              result = num1%num2    
+            break
+            }
+            alert(result);
+            again = prompt("continue? (Y,N)").toUpperCase();
+            
+            
+
+        }
+        */
+    </script>
+    
+    
+</body>
+</html>
