@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(43, 43, 43);
+        }
+        #m{
+            width: 800px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+
+        }
+        #m div{
+            width: 200px;
+            color: whitesmoke;
+            font-size: 22px;
+            text-align: center;
+            padding-bottom: 15px;
+            font-weight: 200;
+            
+        }
+        #m img{
+            width: 200px;
+            height: 220px;
+            border: 2px solid white;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="m">
+        <div><img src=""><br></div>
+    </div>
+    <script>
+        var main = document.getElementById("m");
+        fetch("https://reqres.in/api/users?page=2").then(function(obj){
+            return obj.json();
+     
+        }).then(function(content){
+            var data = content.data;
+            var maped = data.map(function(i){
+                return "<div><img src="+i.avatar+"><br>"+i.email+"</div>"
+            })
+            var str = maped.join("");
+            main.innerHTML = str;
+        })
+
+    </script>
+</body>
+</html>

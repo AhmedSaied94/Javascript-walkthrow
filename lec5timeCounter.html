@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body{
+            background-color: rgb(70, 70, 71);
+        }
+        #container2{
+            width: 600px;
+            min-height: 300px;
+            
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            padding: 10px 0;
+            text-align: center;
+            
+
+        }
+        input{
+            width: 100px;
+            height: 100px;
+            border: none;
+            border-radius: 3px;
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        #container{
+            width: 250px;
+            height: 150px;
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 25px;
+            border-radius: 4px;
+            border: 3px solid rgb(56, 53, 53);
+        }
+        #child{
+            background-color: lightblue;
+            width: 230px;
+            min-height: 130px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid lightslategrey;
+            border-radius: 3px;
+            background-color: rgb(182, 180, 180);
+            padding: 5px;
+            text-align: center;
+        }
+        #days{
+            list-style: none;
+           padding: 1px;
+            
+        }
+        #days li{
+            display: inline;
+            padding: 2px;
+            font-size: 12px;
+                        
+        }
+        li:hover{
+            text-decoration: underline;
+            font-weight: bold;
+            background-color: rgb(56, 53, 53);
+            color: white;
+        }
+        #clock{
+            position: relative;
+            top: 20px;
+            font-weight: bold;
+            font-size: 34px;
+            color: red;
+        }
+        button{
+            border: none;
+            border-radius: 3px;
+            color: white;
+            width: 90px;
+            height: 50px;
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0 30px;
+            
+             
+        }
+        #but{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, 0%); 
+        }
+        #but input{
+            width: 90px;
+            height: 50px;
+            border: none;
+            border-radius: 3px;
+            font-size: 24px;
+            font-weight: 200px;
+        }
+        .active{
+            background-color: rgb(56, 53, 53);
+            color: white;
+            font-weight: bold;
+            border: 1px solid white;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="child">
+            <ul id="days">
+                <li onclick="mark(event)" class="active">SAT</li>
+                <li onclick="mark(event)">SUN</li>
+                <li onclick="mark(event)">MON</li>
+                <li onclick="mark(event)">TUE</li>
+                <li onclick="mark(event)">WED</li>
+                <li onclick="mark(event)">THU</li>
+                <li onclick="mark(event)">FRI</li>
+            </ul>
+            <div id="clock"></div>
+        </div>
+        
+    </div>
+    <div id="Stop">
+        <div id="container2">
+            <div id="h">
+                <h3>Hours</h3>
+                <input type="text" name="hours" placeholder="00">
+            </div>
+            <div id="m">
+                <h3>Minutes</h3>
+                <input type="text" name="minutes" placeholder="00">
+            </div>
+            <div id="s">
+                <h3>Seconds</h3>
+                <input type="text" name="seconds" placeholder="00">
+            </div>
+        </div>
+        <div id="but">
+            <button style="background-color:  green;" onclick="set()">Set</button> <input type="text" name="12" id="" placeholder="PM"> <button style="background-color:  red;" onclick="reset()">Clear</button>
+        </div>
+    </div>
+    <script>
+ 
+        function mark(e){
+            for(i=0;i<e.target.parentNode.children.length;i++){
+                e.target.parentNode.children[i].className=""
+            };
+            e.target.className="active"
+        };
+
+        var hours = document.querySelector("#h input");
+        var minutes = document.querySelector("#m input");
+        var seconds = document.querySelector("#s input");
+        var hours12 = document.querySelector("#but input");
+        var clock = document.querySelector("#clock");
+        var alarm = ""
+        
+
+        setInterval(function(){
+            var date = new Date();
+            clock.innerHTML= date.toLocaleTimeString();
+            
+        },1000);
+
+
+      /*  function set(){
+            if(hours12.value=="pm" || hours12.value=="PM") hours.value *= 2;
+            alarm = (Number(hours.value)*60*60)+(Number(minutes.value)*60)+Number(seconds.value)
+            setInterval(function(){
+                var date = new Date(); 
+                var exactTime = (date.getHours()*60*60)+(date.getMinutes()*60)+date.getSeconds();
+                if(alarm==exactTime){
+                    do{   
+                        var wake = confirm("wake up");
+                    }while(wake==false);
+                }      
+            },1000);
+        */    
+        function set(){
+            if(hours12.value=="pm" || hours12.value=="PM") hours.value *= 2;
+            alarm = (Number(hours.value)*60*60)+(Number(minutes.value)*60)+Number(seconds.value)
+            var date = new Date(); 
+            var exactTime = (date.getHours()*60*60)+(date.getMinutes()*60)+date.getSeconds();
+            setTimeout(function(){
+                do{   
+                    var wake = confirm("wake up");
+                }while(wake==false);
+            },(alarm-exactTime)*1000)
+        }
+        function reset(){
+            alarm= "";
+            hours12.value= "";
+            hours.value= "";
+            minutes.value= "";
+            seconds.value= "";
+        }
+        
+
+
+    </script>
+    
+</body>
+</html>

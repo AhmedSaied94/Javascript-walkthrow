@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Task</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #contain{
+            width: 600px;
+            min-height: 300px;
+            background-color: rgb(241, 237, 239);
+            border: 2px solid rgb(223, 222, 222);
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 25px;
+            
+
+        }
+        #contain ul{
+            list-style: none;
+            border: 1px solid rgb(228, 225, 226);
+            border-bottom: none;
+            padding: 0;
+            background-color: ghostwhite;
+            
+        }
+        #contain ul li{
+            border-bottom: solid 1px rgb(228, 225, 226);
+            padding: 10px 10px;
+            min-height: 35px;
+            font-size: 28px;
+            
+            
+            
+        }
+        #ul button{
+            float: right;
+            border: none;
+            border-radius: 2px;
+            color: white;
+            margin: 0 2px;
+            height: 35px;
+            width: 35px;
+            font-size: 18px;
+            font-weight: bold;
+            
+        }
+        #add button{
+            border: none;
+            border-radius: 2px;
+            background-color: rgb(39, 88, 248);
+            color: white;
+            width: 90px;
+            height: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            
+        }
+        #task{
+            height: 35px;
+            width: 350px;
+            font-size: 22px;
+            border: 1px solid rgb(39, 88, 248);
+            border-radius: 2px;
+            padding: 2px 10px;
+            
+            
+        }
+        .tDone{
+            background-color: rgb(205, 227, 236);
+            color: rgb(4, 95, 4);
+        }
+        #simple{
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div id="contain">
+        <div id="ul">
+            <ul>
+                <li id="simple">Your task will show here <button style="background-color: green;">M</button><button style="background-color: red;">D</button></li>
+
+            </ul>
+        </div>
+        <p style="color: rgb(228, 225, 226);"><hr></p>
+        
+        <div id="add">
+            Task &nbsp; &nbsp; <input type="text" name="task" id="task" placeholder="Enter your task"> &nbsp; <button onclick="add()">Add</button>
+        </div>
+    </div>
+    <script>
+        var tasks = [];
+        var taskV = document.querySelector("#task");
+        var taskList = document.querySelector("#ul ul");
+        var simple = document.querySelector("#simple");
+        function display(){         
+            var arr2html = tasks.map(function(nt){
+                var liCN = "";
+                if(nt.active) liCN = "tDone";
+                return "<li class='"+liCN+"'>"+nt.cont+"<button style='background-color: green;' onClick='tog(\""+nt.cont+"\")'>M</button><button style='background-color: red;' onClick='del(\""+nt.cont+"\")'>D</button></li>";
+            });
+            var arr2string = arr2html.join("");
+            taskList.innerHTML = arr2string;
+        }
+        function add(){
+          if(taskV.value==""){
+              alert("Please enter a task");
+          }else{  
+                var nTask = {
+                    cont:taskV.value,
+                    active:false
+                };
+                tasks.push(nTask);
+                display();
+            }    taskV.value= "";
+        }
+
+        function del(taskN){
+            var dTask = tasks.findIndex(function(nt){
+                return nt.cont == taskN;
+            })
+            tasks.splice(dTask,1);
+            display();
+            if(tasks.length==0){
+                taskList.appendChild(simple);
+
+            }
+        }
+        function tog(taskN){
+            var taskA = tasks.find(function(nt){
+                return nt.cont == taskN;
+            });
+            taskA.active = !taskA.active;
+            console.log(tasks);
+            display();
+        }
+    </script>
+    
+</body>
+</html>

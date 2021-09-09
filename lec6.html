@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body{
+            background-color:  rgb(43, 43, 43);
+        }
+        .container{
+            width: 400px;
+            min-height: 300px;
+            padding-top: 20px;
+            border-radius: 5px;
+            background-color: rgb(214, 210, 210);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+           
+        }
+        .text{
+            width: 380px;
+            height: 40px;
+            margin: 10px auto;
+            padding-top: 10px;
+            
+        }
+        #UN{
+            height:40px;
+            width: 300px;
+            position: relative;
+            left: 35px;
+            margin: auto;
+            text-align: center;
+            font-size: 24px;
+            border: none;
+            border-radius: 5px;
+            color: rgb(4, 53, 4);
+
+        }
+        #PW{
+            height: 40px;
+            width: 300px;
+            position: relative;
+            left: 35px;
+            margin: auto;
+            text-align: center;
+            font-size: 24px;
+            border: none;
+            border-radius: 5px;
+            color: rgb(4, 53, 4);
+            
+        }
+        #log{
+            height: 40px;
+            width: 300px;
+            position: relative;
+            left: 35px;
+            color: white;
+            
+            text-align: center;
+            font-size: 24px;
+            border: none;
+            background-color: rgb(2, 170, 58);
+        }
+        p{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="lec62.html" method="POST" onsubmit="test(event)">
+            <div class="text"><input type="text" id="UN" name="user name" placeholder="User Name"></div>
+            <div class="text"><input type="password" id="PW" name="password" placeholder="Password"></div>
+            <div class="text"><input type="submit" id="log" value="Login"></div></form>
+         
+        <p id="msg">Please login</p>
+        <p id="reg">Not Registered <a href='https://www.google.com'>creat Account</a></p>   
+    </div>
+    <script>
+        function test(e){
+            e.preventDefault();
+            var nEmail = document.getElementById("UN");
+            var pass =  document.getElementById("PW");
+            var msg = document.getElementById("msg");
+            var obj = {
+                email:nEmail.value,
+                password:pass.value
+            }
+            var upJson = JSON.stringify(obj);
+            var url = "https://reqres.in/api/login"
+            fetch("https://reqres.in/api/login",{
+                method:"POST",
+                headers:{'content-type':"application/json"},
+                body:JSON.stringify(obj)
+            }).then(function(res){
+                return res.json();
+            }).then(function(json){
+                if(json.token){
+                    location.href = "lec62.html"
+                }else{
+                    msg.innerHTML=json.error
+                    msg.style.color="red";
+                    msg.style.fontSize="24px"
+                }
+            })
+
+        }
+    </script>
+</body>
+</html>

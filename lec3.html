@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body{
+            background-color: rgb(165, 199, 188);
+        }
+        button{
+            width: 50px;
+            height: 50px;
+            color: skyblue;
+        }
+        #eq{
+            width: 110px;
+            height: 50px;
+        }
+        div{
+            width: 300px;
+            
+            margin: 200px auto;
+            border: 2px solid rgb(185, 217, 245);
+            background-color: azure;
+        }
+        table{
+            margin: 0 auto;
+            padding: 5px;
+        }
+        td{
+            margin: 0 auto;
+            padding: 5px;
+            
+        }
+        h1{
+            margin: 5px;
+        }
+        p{
+            margin-left: 5px;
+        }
+
+
+     </style>
+</head>
+<body>
+    <script src="lec3js.js"></script>
+    <div id="calc">
+        <h1 id="scr">0</h1>
+        <p id="ascr">0</p><hr>
+        <table>
+            <tr>
+                <td><button onclick="cle()">C</button></td>
+                <td><button onclick="con()">+/-</button></td>
+                <td><button onclick="mod()">%</button></td>
+                <td><button onclick="dvi()">/</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="wNumb(7)">7</button></td>
+                <td><button onclick="wNumb(8)">8</button></td>
+                <td><button onclick="wNumb(9)">9</button></td>
+                <td><button onclick="mul()">*</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="wNumb(4)">4</button></td>
+                <td><button onclick="wNumb(5)">5</button></td>
+                <td><button onclick="wNumb(6)">6</button></td>
+                <td><button onclick="min()">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="wNumb(1)">1</button></td>
+                <td><button onclick="wNumb(2)">2</button></td>
+                <td><button onclick="wNumb(3)">3</button></td>
+                <td><button onclick="sum()">+</button></td>
+            </tr>
+            <tr>
+                
+                <td colspan="2"><button id="eq" onclick="wNumb(0)">0</button></td>
+                <td><button onclick="wNumb('.')">.</button></td>
+                <td><button onclick="runOp()">=</button></td>
+            </tr>
+        </table>
+        
+    </div>
+    
+</body>
+</html>

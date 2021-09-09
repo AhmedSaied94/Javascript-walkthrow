@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Show</title>
+    <style>
+        body{
+            background-color: rgb(70, 70, 71);
+        }
+        #backContain{
+            display: grid;
+            grid-template-columns: 1fr 0.5fr;
+            margin: 85px 0 0 35px;
+        }
+        #left{
+            width: 400px;
+            height: 500px;
+            border: 4px solid rgb(9, 81, 175);
+            border-radius: 5px;
+        }
+        #right{
+            width: 400px;
+            height: 500px;
+            border: 4px solid rgb(9, 81, 175);
+            border-radius: 5px;
+        }
+        #center{
+            border: 4px solid rgb(9, 81, 175);
+            border-radius: 5px;
+            width: 500px;
+            height: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .but{
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background-color: rgb(7, 48, 161);
+            color: white;
+            font-weight: 200;
+            font-size: 26px;
+            position: absolute;
+        }
+        #next{
+            top: 50%;
+            right: 1%;
+            transform: translate(-0%, -50%);
+            
+        }
+        #pre{
+            top: 50%;
+            left: 1%;
+            transform: translate(-0%, -50%);
+        }
+        #leftImg{
+            width: 400px;
+            height: 500px;
+            opacity: 0.4;
+        }
+        #rightImg{
+            width: 400px;
+            height: 500px;
+            opacity: 0.4;
+        }
+        #center img{
+            width: 500px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="backContain">
+        <div id="left">
+            <img src="" id="leftImg" alt="">
+        </div>
+        <div id="right">
+            <img src="" alt="" id="rightImg">
+        </div>
+    </div>
+    <div id="center">
+        <img src="" alt="">
+    </div>
+    <button id="next" class="but" onclick="pre()">&gt;</button>
+    <button id="pre" class="but" onclick="next()">&lt;</button>
+
+    <script>
+        var imgArr = ["cat1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg", "cat5.jpg", "cat6.jpg"];
+        var leftImg = document.querySelector("#leftImg");
+        var rightImg = document.querySelector("#rightImg");
+        var centerImg = document.querySelector("#center img");
+        leftImg.src= imgArr[5] 
+        rightImg.src= imgArr[1]
+        centerImg.src= imgArr[0]
+        var num = 0
+        function next(){
+            var le = num
+            var ri = num+2
+            var ce = num+1
+            if(le==imgArr.length) le = 0; 
+            leftImg.src= imgArr[le]
+            if(ri==imgArr.length+1) ri = 1;
+            if(ri==imgArr.length) ri = 0;
+            rightImg.src= imgArr[ri]
+            if(ce==imgArr.length) ce = 0;
+            centerImg.src= imgArr[ce]
+            num += 1
+            if(num==imgArr.length) num = 0;
+        }
+        function pre(){
+            var le = num-2
+            var ri = num
+            var ce = num-1
+            if(le==-1) le = imgArr.length-1;
+            if(le==-2) le = imgArr.length-2;
+            leftImg.src = imgArr[le];
+            if(ri==-1) ri = imgArr.length-1;
+            rightImg.src = imgArr[ri];
+            if(ce==-1) ce = imgArr.length-1;
+            centerImg.src = imgArr[ce];
+            num -=1
+            if(num==-1) num = imgArr.length-1;
+        }
+
+    </script>
+    
+</body>
+</html>
