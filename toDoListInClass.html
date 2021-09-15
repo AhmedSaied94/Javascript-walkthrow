@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Task</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: rgb(32, 32, 32);
+        }
+        #contain{
+            width: 600px;
+            min-height: 150px;
+            background-color: rgb(241, 237, 239);
+            border: 2px solid rgb(223, 222, 222);
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 25px;
+            
+
+        }
+        #contain ul{
+            list-style: none;
+            border: 1px solid rgb(228, 225, 226);
+            border-bottom: none;
+            padding: 0;
+            background-color: ghostwhite;
+            
+        }
+        #contain ul li{
+            border-bottom: solid 1px rgb(228, 225, 226);
+            padding: 10px 10px;
+            min-height: 35px;
+            font-size: 28px;
+            
+            
+            
+        }
+        #ul button{
+            float: right;
+            border: none;
+            border-radius: 2px;
+            color: white;
+            margin: 0 2px;
+            height: 35px;
+            width: 35px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            
+        }
+        #add button{
+            border: none;
+            border-radius: 2px;
+            background-color: rgb(39, 88, 248);
+            color: white;
+            width: 90px;
+            height: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            
+        }
+        #task{
+            height: 35px;
+            width: 350px;
+            font-size: 22px;
+            border: 1px solid rgb(39, 88, 248);
+            border-radius: 2px;
+            padding: 2px 10px;           
+        }
+        .tDone{
+            background-color: rgb(205, 227, 236);
+            color: rgb(4, 95, 4);
+        }
+        #simple{
+            color: grey;
+        }
+        .alert{
+            width: 300px;
+            height: 150px;
+            background-color:rgb(14, 56, 192);
+            color: whitesmoke;
+            border: none;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        .alert button{
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 3px;
+            font-weight: bold;
+            color: whitesmoke;
+            background-color: rgb(211, 3, 3);
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            cursor: pointer;
+        }
+        .alert p{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            padding-bottom: 20px;
+        }
+    </style>
+        <script>
+            class toDoList{
+                
+                taskList = document.querySelector("#ul ul");
+                tasks = [];
+                userInput = document.querySelector("#add input")
+                simple = document.querySelector("#simple")
+                alertt = document.querySelector(".alert")
+                
+
+                constructor(n){
+                    this.n = n
+                } 
+
+                add(){
+                    let userTask = {
+                        name:this.userInput.value,
+                        done:false,
+                        cls:this.n
+                    }
+                    if(this.userInput.value==""){
+                        this.alertt.style.display="block"
+                    }else{
+                        this.tasks.push(userTask);
+                        this.display()
+                        this.userInput.value = ""
+                    }
+                }
+                display(){
+                    let htArr = this.tasks.map(function(cont){
+                        let clName = ""
+                        if(cont.done==true) clName = "tDone"
+                        return `<li class=${clName}>${cont.name}<button style="background-color: green;" onclick='${cont.cls}.mark("${cont.name}")'>M</button><button style="background-color: red;" onclick='${cont.cls}.del("${cont.name}")'>D</button></li>`
+                    })
+                    this.taskList.innerHTML = htArr.join("");
+                }
+                
+                del(dTask){
+                    let taskIndex = this.tasks.findIndex(function(sh){
+                        return sh.name == dTask;
+                    })
+                    this.tasks.splice(taskIndex,1);
+                    this.display()
+                    if(this.tasks.length==0) this.taskList.appendChild(this.simple);
+                }
+
+                mark(nTask){
+                    let doneTask = this.tasks.find(function(sh){
+                        return sh.name == nTask;
+                    })
+                    doneTask.done = !doneTask.done
+                    this.display();
+                }
+                close(){
+                    this.alertt.style.display="none"
+                }
+    
+            }
+           
+            
+        </script>
+</head>
+<body>
+    <div id="contain">
+        <div id="ul">
+            <ul>
+                <li id="simple">Your task will show here <button style="background-color: green;">M</button><button style="background-color: red;" >D</button></li>
+
+            </ul>
+        </div>
+        <p style="color: rgb(228, 225, 226);"><hr></p>
+        
+        <div id="add">
+            Task &nbsp; &nbsp; <input type="text" name="task" id="task" placeholder="Enter your task"> &nbsp; <button onclick="toDo.add()">Add</button>
+        </div>
+    </div>
+    <div class="alert">
+        <p>You didn't enter any task</p>
+        <button onclick="toDo.close()">X</button>
+    </div>
+    <script>
+        let toDo = new toDoList("toDo");
+       
+    </script>
+</body>
+</html>

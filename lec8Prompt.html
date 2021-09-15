@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Window</title>
+    <style>
+        body{
+            background-color: rgb(29, 29, 29);
+        }
+        .display button{
+            background-color: rgb(255, 0, 64);
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            width: 70px;
+            height: 40px;
+            position: absolute;
+            left: 50%;
+            top: 50px;
+            transform: translate(-50%, 0);
+            font-weight: bold;
+            cursor: pointer;
+            
+        }
+        #newPrompt{
+            width: 400px;
+            min-height: 200px;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(206, 206, 206);
+            padding: 10px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            
+        }
+        #newPrompt input{
+            position: relative;
+            top: 10px;
+            left: 20px;
+            width: 350px;
+            height: 50px;
+            display: block;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-align: center;
+        }
+        #x{
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: rgb(224, 2, 2);
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #ok{
+            background-color: rgb(0, 48, 182);
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            width: 90px;
+            height: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #cancel{
+            background-color: rgb(253, 252, 252);
+            border: none;
+            border-radius: 3px;
+            color: rgb(0, 0, 0);
+            font-size: 16px;
+            width: 90px;
+            height: 40px;
+            margin-right: 30px;
+            margin-top: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #displayer{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: whitesmoke;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="display">
+            <button onclick="openPrompt()">Prompt</button>
+        </div>
+        <div id="displayer">
+            <h1></h1>
+        </div>
+        <div id="newPrompt">
+            <h1></h1>
+            <input type="text" placeholder="Enter your messege">
+            <button id="cancel">Cancel</button>
+            <button id="ok">Ok</button>
+            <button id="x">X</button>
+        </div>
+    </div>
+    <script>
+        let Wind = document.getElementById("newPrompt")
+        let shText = document.querySelector("#newPrompt h1");
+        let userInput = document.querySelector("#newPrompt input")
+        let cancel = document.querySelector("#cancel")
+        let ok = document.querySelector("#ok")
+        let x = document.querySelector("#x")
+        let displayer = document.querySelector("#displayer h1")
+        function msgDisplayer(text){
+
+           return (new Promise(function(res,err){
+                Wind.style.display= "block";
+                shText.innerHTML = text;
+                displayer.innerHTML = "";
+  
+                ok.onclick = function(){
+                    if(userInput.value==""){
+                        userInput.value="You didn't enter any message"
+                    }
+                    res(userInput.value);          
+                    Wind.style.display= "none";
+                    userInput.value = "" 
+                } 
+                cancel.onclick = function(){
+                    res(userInput.value = "Please enter your message");
+                    Wind.style.display= "none";
+                    userInput.value = ""; 
+                } 
+                
+                x.onclick = function(){
+                    Wind.style.display= "none";
+                }
+
+            }))
+        }
+        
+
+        async function openPrompt(){
+            let userMsg = await msgDisplayer("Enter your Message");
+            displayer.innerHTML = userMsg;
+            
+
+        }
+    </script>
+    
+</body>
+</html>

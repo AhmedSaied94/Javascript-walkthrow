@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class shape{
+            x = 0;
+            y = 0;
+            circumference = 0;
+            area = 0;
+            type = 0;
+
+            calcCir(){
+                return 0;
+            }
+
+            calcArea(){
+                return 0;
+            }
+
+            log(){
+                console.log(`type : ${this.type}
+                area = ${this.calcArea()}
+                circumference = ${this.calcCir()}`);
+            }
+        }
+
+        class rectangel extends shape{
+            width = 0;
+            height = 0;
+            type = "rectangle";
+            constructor(width, height){
+                super();
+                this.width = width;
+                this.height = height;
+            }
+            calcCir(){
+                this.circumference = (this.width+this.height)*2;
+                return this.circumference;
+            } 
+            calcArea(){
+                this.area = this.width*this.height;
+                return this.area;
+            }
+        }
+        class oval extends shape{
+            a = 0;
+            b = 0;
+            type = "Oval";
+            constructor(a, b){
+                super();
+                this.a = a;
+                this.b = b;
+            }
+            calcCir(){
+                this.circumference = (this.a+this.b) * Math.PI;
+                return this.circumference;
+            }
+            calcArea(){
+                this.area = this.a * this.b * Math.PI;
+                return this.area;
+            }
+        }
+        class square extends rectangel{
+            length = 0;
+            type = "Square";
+            constructor(length){
+                super(length, length);
+                this.length = length;
+            }
+        }
+        class circle extends oval{
+            r = 0;
+            type = "Circle";
+            constructor(r){
+                super(r, r);
+                this.r = r;
+            }
+        }
+        class drawShapes{
+            shapes = [];        
+
+            add(){
+                for(let arg of arguments)
+                this.shapes.push(arg);
+            }
+            logS(){
+                for(let logs of this.shapes){
+                    
+                    logs.log()
+                }
+            }
+        }
+        let r1 = new rectangel(10, 5);
+        let s1 = new square(5);
+        let o1 = new oval(10, 5);
+        let c1 = new circle(5);
+        let nShapes = new drawShapes();
+        
+        nShapes.add(r1, s1, o1, c1);
+        nShapes.logS();
+    </script>
+</body>
+</html>
