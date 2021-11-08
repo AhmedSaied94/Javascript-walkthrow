@@ -87,7 +87,7 @@
     <div id="contain">
         <div id="ul">
             <ul>
-                <li id="simple">Your task will show here <button style="background-color: green;">M</button><button style="background-color: red;">D</button></li>
+                <li id="simple">Your task will show here <button style="background-color: green;" onclick="tog()">M</button><button style="background-color: red;" onclick="del(event)">D</button></li>
 
             </ul>
         </div>
@@ -102,8 +102,21 @@
         var task = document.querySelector("#task");
         var taskList = document.querySelector("#ul ul");    
         var simple = document.querySelector("#simple");
+        taskList.innerHTML = localStorage.todo
+        if(taskList.children.length == 0){
+            taskList.appendChild(simple)
+        }
+        // dis = ()=>{
+        //     taskList.innerHTML = ""
+        //     for(var i of localStorage.todo){
+        //         taskList.innerHTML += i
+        //     }
+        // }
+        // dis()
+      
         
-        function add(){
+        
+        add = ()=>{
             if(task.value==""){
                 alert("Please enter a task")
             }else{
@@ -115,6 +128,12 @@
             }
             taskList.appendChild(nTask);
             task.value= ""
+            localStorage.todo = taskList.innerHTML
+            if(taskList.firstElementChild.id == "simple"){
+                taskList.removeChild(taskList.firstElementChild)
+            }
+
+
             
         }
         function del(e){
@@ -125,11 +144,14 @@
                 sim.innerHTML= "Your task will show here <button style='background-color: green;'>M</button><button style='background-color: red;'>D</button>"*/
                 taskList.appendChild(simple);
             }
+            localStorage.todo = taskList.innerHTML
            
         }
         function tog(e){
             e.target.parentNode.classList.toggle("tDone");
+            localStorage.todo = taskList.innerHTML
         }
+
     </script>
     
 </body>
